@@ -27,4 +27,11 @@ public class Pay {
         return totalPrice + disCount.getTotalDiscountPrice();
     }
 
+    public boolean isTotalPayOverGiftEventPrice() {
+        return totalPrice > 120000;
+    }
+
+    public int getTotalPrice() {
+        return totalPrice;
+    }
 }
