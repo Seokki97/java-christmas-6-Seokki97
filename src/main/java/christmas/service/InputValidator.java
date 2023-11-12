@@ -10,26 +10,29 @@ public class InputValidator {
 
     private static final String NUMBER = "^[0-9]+$";
 
+    public int readVisitDay(String day) {
+        validateInputDataIsNumber(day);
+        int date = Integer.parseInt(day);
+        validateInputDataInDateRange(date);
+        return date;
+    }
+
     public void validateInputDataIsNumber(String inputData) {
         if (!Pattern.matches(NUMBER, inputData)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 
-    public void validateInputDataInDateRange(int date) {
+    private void validateInputDataInDateRange(int date) {
         if (date > 31 || date < 1) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
-    public void validateInputtedOrderData(String orderMenu){
-        validateOrderMenuIsOverZero(orderMenu);
-        validateOrderMenuContainBlank(orderMenu);
+
+    public void checkMenuDataIsWrong(String orderMenu){
         validateOrderMenuContainHyphen(orderMenu);
-    }
-    private void validateOrderMenuIsOverZero(String orderMenu) {
-        if (!orderMenu.contains(",")) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
-        }
+        validateOrderMenuContainBlank(orderMenu);
+        validateOneMenuHasCommaDelimiter(orderMenu);
     }
 
     private void validateOrderMenuContainBlank(String orderMenu) {
@@ -40,6 +43,12 @@ public class InputValidator {
 
     private void validateOrderMenuContainHyphen(String orderMenu) {
         if (!orderMenu.contains("-")) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private void validateOneMenuHasCommaDelimiter(String orderMenu){
+        if(orderMenu.contains(",") && orderMenu.split(",").length ==1){
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
