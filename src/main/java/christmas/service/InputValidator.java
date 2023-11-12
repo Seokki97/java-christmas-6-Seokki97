@@ -1,6 +1,7 @@
 package christmas.service;
 
 import christmas.dto.OrderRequest;
+import christmas.repository.MenuRepository;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class InputValidator {
         }
     }
 
-    public void checkMenuDataIsWrong(String orderMenu){
+    public void checkMenuDataIsWrong(String orderMenu) {
         validateOrderMenuContainHyphen(orderMenu);
         validateOrderMenuContainBlank(orderMenu);
         validateOneMenuHasCommaDelimiter(orderMenu);
@@ -47,8 +48,8 @@ public class InputValidator {
         }
     }
 
-    private void validateOneMenuHasCommaDelimiter(String orderMenu){
-        if(orderMenu.contains(",") && orderMenu.split(",").length ==1){
+    private void validateOneMenuHasCommaDelimiter(String orderMenu) {
+        if (orderMenu.contains(",") && orderMenu.split(",").length == 1) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
@@ -59,5 +60,17 @@ public class InputValidator {
         if (menuNames.size() != copyMenu.size()) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
+    }
+
+    public String[] checkNameAndCount(String orderItem) {
+        String[] menuInformation = orderItem.split("-");
+        String menuName = menuInformation[0];
+        checkOrderItemInMenuList(menuName);
+        validateInputDataIsNumber(menuInformation[1]);
+        return menuInformation;
+    }
+
+    public void checkOrderItemInMenuList(String orderItem) {
+        MenuRepository.findMenuByOrderItem(orderItem);
     }
 }
