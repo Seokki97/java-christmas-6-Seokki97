@@ -1,8 +1,6 @@
 package christmas.domain;
 
-
 import christmas.repository.MenuRepository;
-import java.util.List;
 
 public record Order(MenuRepository orderItem, int orderCount) {
 
@@ -14,6 +12,4 @@ public record Order(MenuRepository orderItem, int orderCount) {
     public int calculatePrice() {
         return orderItem.getPrice() * orderCount;
     }
-
-
 }

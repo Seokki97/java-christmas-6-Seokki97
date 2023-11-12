@@ -12,9 +12,7 @@ public class CalendarService {
 
     public int findVisitDayOfWeek(int visitedDay) {
         Calendar calendar = Calendar.getInstance();
-
         calendar.set(YEAR, Calendar.DECEMBER, visitedDay);
-
         return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
