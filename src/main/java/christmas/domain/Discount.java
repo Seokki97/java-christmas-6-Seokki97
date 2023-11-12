@@ -16,4 +16,13 @@ public class Discount {
         discountList.remove(EventList.GIFT);
     }
 
+    public Map<EventList, Integer> getDiscountList() {
+        return Collections.unmodifiableMap(discountList);
+    }
+
+    public int calculateTotalDiscountPrice() {
+        return discountList.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
 }
