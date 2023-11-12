@@ -1,20 +1,29 @@
 package christmas.service;
 
-import christmas.controller.repository.MenuRepository;
+import christmas.dto.OrderRequest;
+import christmas.repository.MenuRepository;
 import christmas.domain.Order;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderService {
 
-    public List<Order> generateOrderList(List<String> menuInformation) {
-        List<Order> orderList = new ArrayList<>();
+    private static final int ZERO = 0;
 
-        for (String information : menuInformation) {
-            String[] menuItems = information.split("-");
-            orderList.add(new Order(MenuRepository.findMenuByOrderItem(menuItems[0]),
-                    Integer.parseInt(menuItems[1])));
+    public List<Order> generateOrderList(List<OrderRequest> orderRequests) {
+        List<Order> orderList = new ArrayList<>();
+        for (OrderRequest orderRequest : orderRequests) {
+            MenuRepository item = MenuRepository.findMenuByOrderItem(orderRequest.menu());
+            orderList.add(new Order(item, orderRequest.orderCount()));
         }
         return orderList;
+    }
+
+    public int calculateTotalPrice(List<Order> orderList) {
+        int sum = ZERO;
+        for (Order order : orderList) {
+            sum += order.calculatePrice();
+        }
+        return sum;
     }
 }
