@@ -6,6 +6,7 @@ import christmas.domain.EventList;
 public class Pay {
 
     private static final int EVENT_PRICE = 120000;
+    private static final int EVENT_APPLYING_CONDITION = 10000;
     private final int totalPrice;
 
     public Pay(int totalPrice) {
@@ -24,7 +25,7 @@ public class Pay {
     }
 
     public boolean isEventCondition() {
-        return totalPrice > 10000;
+        return totalPrice > EVENT_APPLYING_CONDITION;
     }
 
     public int getTotalPay() {
