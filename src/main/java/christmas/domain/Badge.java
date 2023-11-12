@@ -14,14 +14,14 @@ public enum Badge {
         this.money = money;
     }
 
-    public static Badge findBadge(DisCount disCount) {
-        if (-disCount.getTotalDiscountPrice() > SANTA.money) {
+    public static Badge findBadge(Discount disCount) {
+        if (disCount.calculateTotalDiscountPrice() > SANTA.money) {
             return SANTA;
         }
-        if (-disCount.getTotalDiscountPrice() > TREE.money) {
+        if (disCount.calculateTotalDiscountPrice() > TREE.money) {
             return TREE;
         }
-        if (-disCount.getTotalDiscountPrice() > STAR.money) {
+        if (disCount.calculateTotalDiscountPrice() > STAR.money) {
             return STAR;
         }
         return NOTHING;
