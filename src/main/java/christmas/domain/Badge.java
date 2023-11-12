@@ -14,20 +14,11 @@ public enum Badge {
         this.money = money;
     }
 
-    public static Badge findBadge(Discount disCount) {
-        if (disCount.calculateTotalDiscountPrice() > SANTA.money) {
-            return SANTA;
-        }
-        if (disCount.calculateTotalDiscountPrice() > TREE.money) {
-            return TREE;
-        }
-        if (disCount.calculateTotalDiscountPrice() > STAR.money) {
-            return STAR;
-        }
-        return NOTHING;
-    }
-
     public String getBadgeName() {
         return name;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }
