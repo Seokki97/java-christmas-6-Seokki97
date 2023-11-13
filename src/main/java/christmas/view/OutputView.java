@@ -4,7 +4,6 @@ import christmas.domain.Badge;
 import christmas.domain.Discount;
 import christmas.domain.EventList;
 import christmas.domain.Order;
-import christmas.service.DiscountCalculator;
 import christmas.service.Pay;
 import java.util.List;
 import java.util.Map.Entry;
@@ -20,19 +19,26 @@ public class OutputView {
         }
     }
 
-    public void showTotalPrice(Pay totalPriceBeforeDiscount) {
+    public void showResult(Pay pay, Discount discount){
+        showTotalPrice(pay);
+        showGift(pay);
+        showBonusList(discount);
+        showTotalDiscountPrice(discount);
+    }
+
+    private void showTotalPrice(Pay totalPriceBeforeDiscount) {
         System.out.println("");
         System.out.println("<할인 전 총주문 금액>");
         System.out.println(totalPriceBeforeDiscount.getTotalPay() + "원");
     }
 
-    public void showGift(Pay pay) {
+    private void showGift(Pay pay) {
         System.out.println("");
         System.out.println("<증정 메뉴>");
-        System.out.println(EventList.validateCanGetGift(pay));
+        System.out.println(pay.validateCanGetGift());
     }
 
-    public void showBonusList(Discount discount) {
+    private void showBonusList(Discount discount) {
         System.out.println("");
         System.out.println("<혜택 내역>");
         for (Entry<EventList, Integer> entrySet : discount.getDiscountList().entrySet()) {
@@ -40,7 +46,7 @@ public class OutputView {
         }
     }
 
-    public void showTotalDiscountPrice(Discount discount) {
+    private void showTotalDiscountPrice(Discount discount) {
         System.out.println("");
         System.out.println("<총혜택 금액>");
         System.out.println("-" + discount.calculateTotalDiscountPrice() + "원");
