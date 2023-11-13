@@ -1,6 +1,7 @@
 package christmas.service;
 
 
+import christmas.domain.Discount;
 import christmas.domain.EventList;
 
 public class Pay {
@@ -30,5 +31,10 @@ public class Pay {
 
     public int getTotalPay() {
         return totalPrice;
+    }
+
+    public int getPayMoneyAfterDisCount(Discount discount) {
+        discount.removeGiftElement();
+        return totalPrice - discount.calculateTotalDiscountPrice();
     }
 }
