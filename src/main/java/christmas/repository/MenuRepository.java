@@ -1,6 +1,5 @@
 package christmas.repository;
 
-import christmas.domain.Order;
 import java.util.List;
 
 public enum MenuRepository {
@@ -37,13 +36,6 @@ public enum MenuRepository {
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."));
     }
 
-    public static int countMenuTypeEquals(String type){
-        List<MenuRepository> menuList = List.of(MenuRepository.values());
-
-        return (int) menuList.stream()
-                .filter(item -> item.menuType.equals(type))
-                .count();
-    }
     public boolean isSameType(String type){
         return menuType.equals(type);
     }
@@ -53,9 +45,5 @@ public enum MenuRepository {
 
     public String getName() {
         return name;
-    }
-
-    public String getMenuType() {
-        return menuType;
     }
 }
