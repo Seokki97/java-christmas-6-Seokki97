@@ -1,14 +1,6 @@
 package christmas.view;
 
-import camp.nextstep.edu.missionutils.Console;
-import christmas.service.InputValidator;
-
 public class InputView {
-    private final InputValidator inputValidator;
-
-    public InputView() {
-        this.inputValidator = new InputValidator();
-    }
 
     public void showVisitDay() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
