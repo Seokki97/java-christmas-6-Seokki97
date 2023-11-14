@@ -14,13 +14,13 @@ public class InputValidator {
     private static final String NUMBER = "^[0-9]+$";
 
     public int readVisitDay(String day) {
-        validateInputDataIsNumber(day);
+        validateDayIsNotNumber(day);
         int date = Integer.parseInt(day);
         validateInputDataInDateRange(date);
         return date;
     }
 
-    public void validateInputDataIsNumber(String inputData) {
+    private void validateDayIsNotNumber(String inputData) {
         if (!Pattern.matches(NUMBER, inputData)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
@@ -28,7 +28,7 @@ public class InputValidator {
 
     private void validateInputDataInDateRange(int date) {
         if (date > 31 || date < 1) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
@@ -68,16 +68,21 @@ public class InputValidator {
         String[] menuInformation = orderItem.split("-");
         String menuName = menuInformation[0];
         checkOrderItemInMenuList(menuName);
-        validateInputDataIsNumber(menuInformation[1]);
+        validateMenuCountIsNotNumber(menuInformation[1]);
         return menuInformation;
     }
 
+    private void validateMenuCountIsNotNumber(String inputData) {
+        if (!Pattern.matches(NUMBER, inputData)) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
     public void checkOrderItemInMenuList(String orderItem) {
         MenuRepository.findMenuByOrderItem(orderItem);
     }
 
     public void checkOrderMenuOnlyDrinkType(OrderList orderList) {
-        if(isOrderMenuOnlyDrinkType(orderList)){
+        if (isOrderMenuOnlyDrinkType(orderList)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
@@ -85,6 +90,6 @@ public class InputValidator {
     private boolean isOrderMenuOnlyDrinkType(OrderList orderList) {
         return orderList.orderList().stream().map(Order::orderItem)
                 .map(MenuRepository::getType)
-                .allMatch(x-> x.equals("음료"));
+                .allMatch(x -> x.equals("음료"));
     }
 }
