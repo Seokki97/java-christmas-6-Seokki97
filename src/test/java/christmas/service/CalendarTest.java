@@ -1,8 +1,6 @@
 package christmas.service;
 
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -32,9 +30,9 @@ public class CalendarTest {
         int notStarDay = 26;
 
         Assertions.assertAll(
-                () -> Assertions.assertTrue(calendarService.isStarDay(starDay)),
-                () -> Assertions.assertTrue(calendarService.isStarDay(christmas)),
-                () -> Assertions.assertFalse(calendarService.isStarDay(notStarDay))
+                () -> Assertions.assertTrue(calendarService.isSpecialDay(starDay)),
+                () -> Assertions.assertTrue(calendarService.isSpecialDay(christmas)),
+                () -> Assertions.assertFalse(calendarService.isSpecialDay(notStarDay))
         );
     }
 

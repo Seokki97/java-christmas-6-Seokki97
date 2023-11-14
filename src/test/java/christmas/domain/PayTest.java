@@ -13,8 +13,8 @@ public class PayTest {
         Pay gift = new Pay(130000);
         Pay nonGift = new Pay(9999);
         Assertions.assertAll(
-                () -> Assertions.assertTrue(gift.isEventCondition()),
-                () -> Assertions.assertFalse(nonGift.isEventCondition())
+                () -> Assertions.assertTrue(gift.isEventApplyingCondition()),
+                () -> Assertions.assertFalse(nonGift.isEventApplyingCondition())
         );
     }
 
@@ -35,8 +35,8 @@ public class PayTest {
         Pay eventFalse = new Pay(3000);
         Pay eventTrue = new Pay(12000);
         Assertions.assertAll(
-                () -> Assertions.assertFalse(eventFalse.isEventCondition()),
-                () -> Assertions.assertTrue(eventTrue.isEventCondition())
+                () -> Assertions.assertFalse(eventFalse.isEventApplyingCondition()),
+                () -> Assertions.assertTrue(eventTrue.isEventApplyingCondition())
         );
     }
 }

@@ -17,7 +17,7 @@ public class SpecialDiscount implements DiscountStrategy {
 
     @Override
     public void calculateDiscount(Map<EventList, Integer> discountList) {
-        if (calendarService.isStarDay(visitDay)) {
+        if (calendarService.isSpecialDay(visitDay)) {
             discountList.put(EventList.SPECIAL,
                     discountList.getOrDefault(EventList.SPECIAL, DiscountPrice.SPECIAL.getDiscountPrice()));
         }

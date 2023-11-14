@@ -33,10 +33,10 @@ public class InputValidatorTest {
         String notError = "제로콜라-1";
         Assertions.assertAll(
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> inputValidator.checkNameAndCount(nameError)),
+                        () -> inputValidator.checkMenuInformation(nameError)),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> inputValidator.checkNameAndCount(countError)),
-                () -> Assertions.assertDoesNotThrow(() -> inputValidator.checkNameAndCount(notError))
+                        () -> inputValidator.checkMenuInformation(countError)),
+                () -> Assertions.assertDoesNotThrow(() -> inputValidator.checkMenuInformation(notError))
         );
     }
 
@@ -45,12 +45,12 @@ public class InputValidatorTest {
     void checkMenuInput(){
         Assertions.assertAll(
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> inputValidator.checkMenuDataIsWrong("제로콜라 1")),
+                        () -> inputValidator.checkMenuInformationIsWrong("제로콜라 1")),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> inputValidator.checkMenuDataIsWrong("제로콜라-1 ")),
+                        () -> inputValidator.checkMenuInformationIsWrong("제로콜라-1 ")),
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
-                        () -> inputValidator.checkMenuDataIsWrong("제로콜라-1,")),
-                () -> Assertions.assertDoesNotThrow(() -> inputValidator.checkMenuDataIsWrong("제로콜라-1"))
+                        () -> inputValidator.checkMenuInformationIsWrong("제로콜라-1,")),
+                () -> Assertions.assertDoesNotThrow(() -> inputValidator.checkMenuInformationIsWrong("제로콜라-1"))
         );
     }
 

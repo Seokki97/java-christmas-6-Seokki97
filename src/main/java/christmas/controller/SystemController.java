@@ -22,10 +22,9 @@ public class SystemController {
     public void run() {
         int visitDay = orderController.readVisitDay();
         OrderList orderList = orderController.readOrderMenuInformation();
-        int totalPrice = orderList.calculateTotalPrice();
-        Pay pay = new Pay(totalPrice);
+        Pay pay = new Pay(orderList.calculateTotalPrice());
         EventController eventController = new EventController(orderList, visitDay, pay);
-        Map<EventList, Integer> discountList = eventController.calculateDayOfWeekDiscount(pay);
+        Map<EventList, Integer> discountList = eventController.calculateDiscountEvent(pay);
         Discount discount = new Discount(discountList);
         outputView.showResult(pay, discount);
         showDiscountPrice(discount, pay);
@@ -33,7 +32,7 @@ public class SystemController {
 
     private void showDiscountPrice(Discount discount, Pay pay) {
         Badge badge = discount.findBadge();
-        int totalDiscountPayPrice = pay.calculatePayMoneyAfterDisCount(discount);
+        int totalDiscountPayPrice = pay.calculatePayAmountAfterDisCount(discount);
         outputView.showAfterDiscountPrice(totalDiscountPayPrice);
         outputView.showEventBadge(badge);
     }

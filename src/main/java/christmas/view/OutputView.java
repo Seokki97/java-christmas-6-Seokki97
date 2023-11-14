@@ -1,6 +1,6 @@
 package christmas.view;
 
-import static christmas.service.NumberFormatter.formatCurrency;
+import static christmas.service.NumberFormatter.convertToOutputFormat;
 
 import christmas.domain.Badge;
 import christmas.domain.Discount;
@@ -31,7 +31,7 @@ public class OutputView {
     private void showTotalPrice(Pay totalPriceBeforeDiscount) {
         System.out.println("");
         System.out.println("<할인 전 총주문 금액>");
-        System.out.println(formatCurrency(totalPriceBeforeDiscount.getTotalPay()) + "원");
+        System.out.println(convertToOutputFormat(totalPriceBeforeDiscount.getTotalPay()) + "원");
     }
 
     private void showGift(Pay pay) {
@@ -54,14 +54,14 @@ public class OutputView {
             return;
         }
         System.out.println(
-                entrySet.getKey().getEventName() + "-" + formatCurrency(entrySet.getValue())
+                entrySet.getKey().getEventName() + "-" + convertToOutputFormat(entrySet.getValue())
                         + "원");
     }
 
     private void showTotalDiscountPrice(int totalDiscountMoney) {
         System.out.println("");
         System.out.println("<총혜택 금액>");
-        decideTotalDiscountPriceMessage(formatCurrency(totalDiscountMoney));
+        decideTotalDiscountPriceMessage(convertToOutputFormat(totalDiscountMoney));
     }
 
     private void decideTotalDiscountPriceMessage(String money) {
@@ -75,7 +75,7 @@ public class OutputView {
     public void showAfterDiscountPrice(int price) {
         System.out.println("");
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.println(formatCurrency(price) + "원");
+        System.out.println(convertToOutputFormat(price) + "원");
     }
 
     public void showEventBadge(Badge badge) {

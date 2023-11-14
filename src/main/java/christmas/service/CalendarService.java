@@ -20,7 +20,7 @@ public class CalendarService {
         return dayOfWeek >= WEEKEND;
     }
 
-    public boolean isStarDay(int visitedDay) {
+    public boolean isSpecialDay(int visitedDay) {
         return visitedDay % WEEK_UNIT == STAR_DAY || visitedDay == CHRISTMAS;
     }
 }

@@ -27,9 +27,9 @@ public class EventController {
         this.weekendDiscountStrategy = new WeekendDiscount(calendarService, orderList, visitDay);
     }
 
-    public Map<EventList, Integer> calculateDayOfWeekDiscount(Pay pay) {
+    public Map<EventList, Integer> calculateDiscountEvent(Pay pay) {
         Map<EventList, Integer> discountList = new HashMap<>();
-        if (!pay.isEventCondition()) {
+        if (!pay.isEventApplyingCondition()) {
             discountList.put(EventList.NOTHING,
                     discountList.getOrDefault(EventList.NOTHING, DiscountPrice.DEFAULT.getDiscountPrice()));
             return discountList;

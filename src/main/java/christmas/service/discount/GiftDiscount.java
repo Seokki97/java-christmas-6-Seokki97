@@ -15,7 +15,7 @@ public class GiftDiscount implements DiscountStrategy {
 
     @Override
     public void calculateDiscount(Map<EventList, Integer> discountList) {
-        if (pay.isTotalPayOverGiftEventPrice()) {
+        if (pay.isTotalPayOverEventPrice()) {
             discountList.put(EventList.GIFT,
                     discountList.getOrDefault(EventList.GIFT, DiscountPrice.GIFT.getDiscountPrice()));
         }

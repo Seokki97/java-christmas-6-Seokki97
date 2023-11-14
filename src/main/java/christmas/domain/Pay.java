@@ -13,25 +13,25 @@ public class Pay {
     }
 
     public String checkCanGetGift() {
-        if (isTotalPayOverGiftEventPrice()) {
+        if (isTotalPayOverEventPrice()) {
             return EventList.CHAMPAGNE.getEventName();
         }
         return EventList.NOTHING.getEventName();
     }
 
-    public boolean isTotalPayOverGiftEventPrice() {
+    public boolean isTotalPayOverEventPrice() {
         return totalPrice >= EVENT_PRICE;
     }
 
-    public boolean isEventCondition() {
+    public boolean isEventApplyingCondition() {
         return totalPrice >= EVENT_APPLYING_CONDITION;
     }
 
+    public int calculatePayAmountAfterDisCount(Discount discount) {
+        return totalPrice - discount.calculateTotalDiscountMoneyExceptGift();
+    }
+    
     public int getTotalPay() {
         return totalPrice;
-    }
-
-    public int calculatePayMoneyAfterDisCount(Discount discount) {
-        return totalPrice - discount.calculateTotalDiscountMoneyExceptGift();
     }
 }

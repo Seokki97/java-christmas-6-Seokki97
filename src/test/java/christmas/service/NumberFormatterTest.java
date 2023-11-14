@@ -10,8 +10,8 @@ public class NumberFormatterTest {
     @Test
     void convertMoney(){
         Assertions.assertAll(
-                () -> Assertions.assertEquals("1,000", NumberFormatter.formatCurrency(1000)),
-                () -> Assertions.assertEquals("10,000", NumberFormatter.formatCurrency(10000))
+                () -> Assertions.assertEquals("1,000", NumberFormatter.convertToOutputFormat(1000)),
+                () -> Assertions.assertEquals("10,000", NumberFormatter.convertToOutputFormat(10000))
         );
     }
 }

@@ -38,7 +38,7 @@ public class OrderController {
     }
 
     public OrderList readOrderMenuInformation() {
-        inputView.showOrderMenu();
+        inputView.showOrderInformation();
         OrderList orderList;
         while (true) {
             try {
@@ -65,14 +65,14 @@ public class OrderController {
 
     private List<String> validateOrderMenuInformation() {
         String menuInformation = Console.readLine();
-        inputValidator.checkMenuDataIsWrong(menuInformation);
+        inputValidator.checkMenuInformationIsWrong(menuInformation);
         return Arrays.stream(menuInformation.split(",")).toList();
     }
 
     private List<OrderRequest> generateOrderRequest(List<String> orderList) {
         List<OrderRequest> orderRequests = new ArrayList<>();
         for (String order : orderList) {
-            String[] menuInformation = inputValidator.checkNameAndCount(order);
+            String[] menuInformation = inputValidator.checkMenuInformation(order);
             String menuName = menuInformation[0];
             int orderCount = Integer.parseInt(menuInformation[1]);
             orderRequests.add(new OrderRequest(menuName, orderCount));

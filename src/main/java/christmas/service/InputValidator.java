@@ -20,26 +20,29 @@ public class InputValidator {
     private static final int MENU = 0;
     private static final int ORDER_COUNT = 1;
 
+    private static final int LAST_DAY = 31;
+    private static final int START_DAY = 1;
+
     public int validateVisitDay(String day) {
-        validateDayIsNotNumber(day);
+        validateDayIsNumber(day);
         int date = Integer.parseInt(day);
         validateInputDataInDateRange(date);
         return date;
     }
 
-    private void validateDayIsNotNumber(String inputData) {
+    private void validateDayIsNumber(String inputData) {
         if (!Pattern.matches(NUMBER, inputData)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
         }
     }
 
     private void validateInputDataInDateRange(int date) {
-        if (date > 31 || date < 1) {
+        if (date > LAST_DAY || date < START_DAY) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
-    public void checkMenuDataIsWrong(String orderMenu) {
+    public void checkMenuInformationIsWrong(String orderMenu) {
         validateOrderMenuContainHyphen(orderMenu);
         validateOrderMenuContainBlank(orderMenu);
         validateOneMenuHasCommaDelimiter(orderMenu);
@@ -71,7 +74,7 @@ public class InputValidator {
         }
     }
 
-    public String[] checkNameAndCount(String orderItem) {
+    public String[] checkMenuInformation(String orderItem) {
         String[] menuInformation = orderItem.split("-");
         String menuName = menuInformation[MENU];
         checkOrderItemInMenuList(menuName);
