@@ -3,7 +3,7 @@ package christmas.service;
 import christmas.domain.EventList;
 import christmas.domain.Pay;
 import christmas.service.discount.GiftDiscount;
-import christmas.service.discount.SpecialDiscount;
+
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;

@@ -7,21 +7,21 @@ import java.util.Map;
 public class Discount {
 
     private final Map<EventList, Integer> discountList;
-    private final int totalDiscountMoney;
+    private final int totalBenefitMoney;
 
     public Discount(Map<EventList, Integer> discountList) {
         this.discountList = discountList;
-        this.totalDiscountMoney = calculateTotalDiscountMoney();
+        this.totalBenefitMoney = calculateTotalBenefitMoney();
     }
 
-    public int calculateTotalDiscountMoney() {
+    private int calculateTotalBenefitMoney() {
         return discountList.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
     }
 
-    public int calculateTotalDiscountMoneyExceptGift(){
-        Map<EventList,Integer> copyDiscountList = new HashMap<>(Map.copyOf(discountList));
+    public int calculateTotalDiscountMoneyExceptGift() {
+        Map<EventList, Integer> copyDiscountList = new HashMap<>(Map.copyOf(discountList));
         copyDiscountList.remove(EventList.GIFT);
         return copyDiscountList.values().stream()
                 .mapToInt(Integer::intValue)
@@ -32,21 +32,20 @@ public class Discount {
         return Collections.unmodifiableMap(discountList);
     }
 
-
     public Badge findBadge() {
-        if (totalDiscountMoney > Badge.SANTA.getMoney()) {
+        if (totalBenefitMoney > Badge.SANTA.getMoney()) {
             return Badge.SANTA;
         }
-        if (totalDiscountMoney > Badge.TREE.getMoney()) {
+        if (totalBenefitMoney > Badge.TREE.getMoney()) {
             return Badge.TREE;
         }
-        if (totalDiscountMoney > Badge.STAR.getMoney()) {
+        if (totalBenefitMoney > Badge.STAR.getMoney()) {
             return Badge.STAR;
         }
         return Badge.NOTHING;
     }
 
-    public int getTotalDiscountMoney() {
-        return totalDiscountMoney;
+    public int getTotalBenefitMoney() {
+        return totalBenefitMoney;
     }
 }

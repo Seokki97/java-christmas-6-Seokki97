@@ -28,7 +28,7 @@ public class OrderController {
         int date;
         while (true) {
             try {
-                date = inputValidator.readVisitDay(Console.readLine());
+                date = inputValidator.validateVisitDay(Console.readLine());
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());

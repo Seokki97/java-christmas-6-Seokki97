@@ -26,6 +26,7 @@ public class EventController {
         this.specialDiscount = new SpecialDiscount(calendarService, visitDay);
         this.weekendDiscountStrategy = new WeekendDiscount(calendarService, orderList, visitDay);
     }
+
     public Map<EventList, Integer> calculateDayOfWeekDiscount(Pay pay) {
         Map<EventList, Integer> discountList = new HashMap<>();
         if (!pay.isEventCondition()) {

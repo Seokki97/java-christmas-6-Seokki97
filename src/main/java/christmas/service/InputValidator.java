@@ -20,7 +20,7 @@ public class InputValidator {
     private static final int MENU = 0;
     private static final int ORDER_COUNT = 1;
 
-    public int readVisitDay(String day) {
+    public int validateVisitDay(String day) {
         validateDayIsNotNumber(day);
         int date = Integer.parseInt(day);
         validateInputDataInDateRange(date);
@@ -85,7 +85,7 @@ public class InputValidator {
         }
     }
 
-    public void checkOrderItemInMenuList(String orderItem) {
+    private void checkOrderItemInMenuList(String orderItem) {
         MenuRepository.findMenuByOrderItem(orderItem);
     }
 

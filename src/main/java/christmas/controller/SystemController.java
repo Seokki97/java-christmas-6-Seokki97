@@ -4,7 +4,6 @@ import christmas.domain.Badge;
 import christmas.domain.Discount;
 import christmas.domain.EventList;
 import christmas.domain.OrderList;
-import christmas.service.DiscountCalculator;
 import christmas.domain.Pay;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -23,10 +22,10 @@ public class SystemController {
     public void run() {
         int visitDay = orderController.readVisitDay();
         OrderList orderList = orderController.readOrderMenuInformation();
-        DiscountCalculator discountCalculator = new DiscountCalculator(orderList);
         int totalPrice = orderList.calculateTotalPrice();
         Pay pay = new Pay(totalPrice);
-        Map<EventList, Integer> discountList = discountCalculator.calculateDayOfWeekDiscount(visitDay, pay);
+        EventController eventController = new EventController(orderList, visitDay, pay);
+        Map<EventList, Integer> discountList = eventController.calculateDayOfWeekDiscount(pay);
         Discount discount = new Discount(discountList);
         outputView.showResult(pay, discount);
         showDiscountPrice(discount, pay);
@@ -34,7 +33,7 @@ public class SystemController {
 
     private void showDiscountPrice(Discount discount, Pay pay) {
         Badge badge = discount.findBadge();
-        int totalDiscountPayPrice = pay.getPayMoneyAfterDisCount(discount);
+        int totalDiscountPayPrice = pay.calculatePayMoneyAfterDisCount(discount);
         outputView.showAfterDiscountPrice(totalDiscountPayPrice);
         outputView.showEventBadge(badge);
     }

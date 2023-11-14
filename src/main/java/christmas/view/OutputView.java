@@ -1,6 +1,7 @@
 package christmas.view;
 
 import static christmas.service.NumberFormatter.formatCurrency;
+
 import christmas.domain.Badge;
 import christmas.domain.Discount;
 import christmas.domain.EventList;
@@ -24,7 +25,7 @@ public class OutputView {
         showTotalPrice(pay);
         showGift(pay);
         showBonusList(discount);
-        showTotalDiscountPrice(discount);
+        showTotalDiscountPrice(discount.getTotalBenefitMoney());
     }
 
     private void showTotalPrice(Pay totalPriceBeforeDiscount) {
@@ -36,13 +37,13 @@ public class OutputView {
     private void showGift(Pay pay) {
         System.out.println("");
         System.out.println("<증정 메뉴>");
-        System.out.println(pay.validateCanGetGift());
+        System.out.println(pay.checkCanGetGift());
     }
 
     private void showBonusList(Discount discount) {
         System.out.println("");
         System.out.println("<혜택 내역>");
-        for (Entry<EventList, Integer> entrySet : discount.getDiscountList().entrySet()) {
+        for (Entry<EventList, Integer> entrySet : discount.discountList().entrySet()) {
             decideBonusListMessage(entrySet);
         }
     }
@@ -57,10 +58,10 @@ public class OutputView {
                         + "원");
     }
 
-    private void showTotalDiscountPrice(Discount discount) {
+    private void showTotalDiscountPrice(int totalDiscountMoney) {
         System.out.println("");
         System.out.println("<총혜택 금액>");
-        decideTotalDiscountPriceMessage(formatCurrency(discount.calculateTotalDiscountPrice()));
+        decideTotalDiscountPriceMessage(formatCurrency(totalDiscountMoney));
     }
 
     private void decideTotalDiscountPriceMessage(String money) {
