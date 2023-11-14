@@ -12,23 +12,30 @@ public class DiscountTest {
     private Discount discount;
 
     @BeforeEach
-    void set(){
+    void set() {
         Map<EventList, Integer> map = new HashMap<>();
 
-        map.put(EventList.GIFT,25000);
-        map.put(EventList.SUNDAY,2023);
+        map.put(EventList.GIFT, 25000);
+        map.put(EventList.SUNDAY, 2023);
         discount = new Discount(map);
     }
+
     @DisplayName("혜택 금액 총합을 계산한다.")
     @Test
-    void calculateTotalBenefitMoney(){
+    void calculateTotalBenefitMoney() {
 
-        Assertions.assertEquals(27023,discount.getTotalBenefitMoney());
+        Assertions.assertEquals(27023, discount.getTotalBenefitMoney());
     }
 
     @DisplayName("Gift 항목을 제외한 혜택금액의 총합을 계산한다")
     @Test
-    void calculateBenefitsExceptGift(){
-        Assertions.assertEquals(2023,discount.calculateTotalDiscountMoneyExceptGift());
+    void calculateBenefitsExceptGift() {
+        Assertions.assertEquals(2023, discount.calculateTotalDiscountMoneyExceptGift());
+    }
+
+    @DisplayName("총 혜택 금액에 따른 뱃지를 결정한다.")
+    @Test
+    void findBadge() {
+        Assertions.assertEquals(Badge.SANTA, discount.findBadge());
     }
 }
