@@ -57,7 +57,7 @@ public class OrderController {
     public OrderList readOrderMenu(List<OrderRequest> orderRequests) {
         List<Order> orders = new ArrayList<>();
         OrderList orderList = new OrderList(orders);
-        orderList = orderList.generateOrderList(orderRequests);
+        orderList = orderList.addMenuInOrderList(orderRequests);
         inputValidator.checkOrderMenuOnlyDrinkType(orderList);
         outputView.showOrderMenu(orderList);
         return orderList;

@@ -9,7 +9,7 @@ public record OrderList(List<Order> orderList) {
 
     private static final int ZERO = 0;
 
-    public OrderList generateOrderList(List<OrderRequest> orderRequests) {
+    public OrderList addMenuInOrderList(List<OrderRequest> orderRequests) {
         for (OrderRequest orderRequest : orderRequests) {
             MenuRepository item = MenuRepository.findMenuByOrderItem(orderRequest.menu());
             orderList.add(new Order(item, orderRequest.orderCount()));
