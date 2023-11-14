@@ -16,4 +16,15 @@ public class MenuRepositoryTest {
                 () -> Assertions.assertFalse(menuItem.isSameType("디저트"))
         );
     }
+
+    @DisplayName("주문한 메뉴를 찾는다. 없을시 예외를 발생시킨다.")
+    @Test
+    void findMenu(){
+        MenuRepository coke = MenuRepository.findMenuByOrderItem("제로콜라");
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals("제로콜라",coke.getName()),
+                () -> Assertions.assertThrows(IllegalArgumentException.class,() -> MenuRepository.findMenuByOrderItem("모라"))
+        );
+    }
 }
