@@ -11,7 +11,7 @@ public class PayTest {
     @Test
     void isEventCondition() {
         Pay gift = new Pay(130000);
-        Pay nonGift = new Pay(10000);
+        Pay nonGift = new Pay(9999);
         Assertions.assertAll(
                 () -> Assertions.assertTrue(gift.isEventCondition()),
                 () -> Assertions.assertFalse(nonGift.isEventCondition())
