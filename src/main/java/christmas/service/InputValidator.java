@@ -58,7 +58,7 @@ public class InputValidator {
     }
 
     private void validateOneMenuHasCommaDelimiter(String orderMenu) {
-        if (orderMenu.contains(BLANK) && orderMenu.split(COMMA).length == 1) {
+        if (orderMenu.contains(COMMA) && orderMenu.split(COMMA).length == 1) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
