@@ -12,7 +12,7 @@ public class Pay {
         this.totalPrice = totalPrice;
     }
 
-    public String validateCanGetGift() {
+    public String checkCanGetGift() {
         if (isTotalPayOverGiftEventPrice()) {
             return EventList.CHAMPAGNE.getEventName();
         }
@@ -20,11 +20,11 @@ public class Pay {
     }
 
     public boolean isTotalPayOverGiftEventPrice() {
-        return totalPrice > EVENT_PRICE;
+        return totalPrice >= EVENT_PRICE;
     }
 
     public boolean isEventCondition() {
-        return totalPrice > EVENT_APPLYING_CONDITION;
+        return totalPrice >= EVENT_APPLYING_CONDITION;
     }
 
     public int getTotalPay() {
