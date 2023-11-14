@@ -43,4 +43,18 @@ public class InputValidatorTest {
                 () -> Assertions.assertDoesNotThrow(() -> inputValidator.checkNameAndCount(notError))
         );
     }
+
+    @DisplayName("메뉴 입력에 대한 오류를 검증한다.")
+    @Test
+    void checkMenuInput(){
+        Assertions.assertAll(
+                () -> Assertions.assertThrows(IllegalArgumentException.class,
+                        () -> inputValidator.checkMenuDataIsWrong("제로콜라 1")),
+                () -> Assertions.assertThrows(IllegalArgumentException.class,
+                        () -> inputValidator.checkMenuDataIsWrong("제로콜라-1 ")),
+                () -> Assertions.assertThrows(IllegalArgumentException.class,
+                        () -> inputValidator.checkMenuDataIsWrong("제로콜라-1,")),
+                () -> Assertions.assertDoesNotThrow(() -> inputValidator.checkMenuDataIsWrong("제로콜라-1"))
+        );
+    }
 }
