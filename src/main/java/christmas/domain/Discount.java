@@ -3,19 +3,14 @@ package christmas.domain;
 import java.util.Collections;
 import java.util.Map;
 
-public class Discount {
-
-    private final Map<EventList, Integer> discountList;
-
-    public Discount(Map<EventList, Integer> discountList) {
-        this.discountList = discountList;
-    }
+public record Discount(Map<EventList, Integer> discountList) {
 
     public void removeGiftElement() {
         discountList.remove(EventList.GIFT);
     }
 
-    public Map<EventList, Integer> getDiscountList() {
+    @Override
+    public Map<EventList, Integer> discountList() {
         return Collections.unmodifiableMap(discountList);
     }
 
