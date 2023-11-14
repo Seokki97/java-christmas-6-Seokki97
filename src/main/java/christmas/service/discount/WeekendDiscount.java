@@ -26,20 +26,20 @@ public class WeekendDiscount implements DiscountStrategy {
         int dayOfWeek = calendarService.findVisitDayOfWeek(visitedDay);
             if (calendarService.isWeekend(dayOfWeek)) {
                 for (Order order : orderList.orderList()) {
-                    findSameMenuType(discountList, MAIN_TYPE, order);
+                    applyWeekendEvent(discountList,EventList.SUNDAY, MAIN_TYPE, order);
                 }
                 return;
             }
             for (Order order : orderList.orderList()) {
-                findSameMenuType(discountList, DESSERT_TYPE, order);
+                applyWeekendEvent(discountList,EventList.WEEKDAY, DESSERT_TYPE, order);
             }
     }
 
-    private void findSameMenuType(Map<EventList, Integer> discountList, String menuType,
+    private void applyWeekendEvent(Map<EventList, Integer> discountList,EventList eventList, String menuType,
                                   Order order) {
         if (order.orderItem().isSameType(menuType)) {
-            discountList.put(EventList.SUNDAY,
-                    discountList.getOrDefault(EventList.SUNDAY, DiscountPrice.DEFAULT.getDiscountPrice())
+            discountList.put(eventList,
+                    discountList.getOrDefault(eventList, DiscountPrice.DEFAULT.getDiscountPrice())
                             + DiscountPrice.MENU.getDiscountPrice() * order.orderCount());
         }
     }
