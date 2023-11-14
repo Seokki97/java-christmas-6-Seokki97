@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class CalendarTest {
 
-    private CalendarService calendarService = new CalendarService();
+    private final CalendarService calendarService = new CalendarService();
 
     @DisplayName("방문 날짜가 주말인지 확인한다.")
     @Test
@@ -36,5 +36,13 @@ public class CalendarTest {
                 () -> Assertions.assertTrue(calendarService.isStarDay(christmas)),
                 () -> Assertions.assertFalse(calendarService.isStarDay(notStarDay))
         );
+    }
+
+    @DisplayName("방문 날짜의 요일을 반환한다")
+    @Test
+    void getVisitDayOfWeek(){
+        int friday = 6;
+
+        Assertions.assertEquals(friday,calendarService.findVisitDayOfWeek(1));
     }
 }
