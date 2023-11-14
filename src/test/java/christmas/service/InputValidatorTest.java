@@ -28,4 +28,19 @@ public class InputValidatorTest {
                 () -> Assertions.assertDoesNotThrow(() -> inputValidator.validateVisitDay("2"))
         );
     }
+
+    @DisplayName("메뉴 이름과 주문 갯수를 검증한다.")
+    @Test
+    void checkNameAndCount() {
+        String nameError = "햄버거-1";
+        String countError = "제로콜라-a";
+        String notError = "제로콜라-1";
+        Assertions.assertAll(
+                () -> Assertions.assertThrows(IllegalArgumentException.class,
+                        () -> inputValidator.checkNameAndCount(nameError)),
+                () -> Assertions.assertThrows(IllegalArgumentException.class,
+                        () -> inputValidator.checkNameAndCount(countError)),
+                () -> Assertions.assertDoesNotThrow(() -> inputValidator.checkNameAndCount(notError))
+        );
+    }
 }
