@@ -17,4 +17,15 @@ public class PayTest {
                 () -> Assertions.assertFalse(nonGift.isEventCondition())
         );
     }
+
+    @DisplayName("증정 선물을 받는 지 검증한다")
+    @Test
+    void canGetEvent() {
+        Pay gift = new Pay(130000);
+        Pay nonGift = new Pay(10000);
+        Assertions.assertAll(
+                () -> Assertions.assertEquals("샴페인 1개", gift.checkCanGetGift()),
+                () -> Assertions.assertEquals("없음", nonGift.checkCanGetGift())
+        );
+    }
 }
