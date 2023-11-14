@@ -31,4 +31,10 @@ public class OrderListTest {
                 () -> Assertions.assertEquals("제로콜라", orderList.orderList().get(0).orderItem().getName())
         );
     }
+
+    @DisplayName("주문한 내역들의 총 액수를 계산한다")
+    @Test
+    void calculateTotalPrice(){
+        Assertions.assertEquals(21000,orderList.calculateTotalPrice());
+    }
 }
