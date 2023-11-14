@@ -36,14 +36,19 @@ public enum MenuRepository {
                 .orElseThrow(() -> new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요."));
     }
 
-    public boolean isSameType(String type){
+    public boolean isSameType(String type) {
         return menuType.equals(type);
     }
+
     public int getPrice() {
         return price;
     }
 
     public String getName() {
         return name;
+    }
+
+    public String getType() {
+        return menuType;
     }
 }
