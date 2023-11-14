@@ -1,25 +1,26 @@
 package christmas.view;
 
+import static christmas.service.NumberFormatter.formatCurrency;
 import christmas.domain.Badge;
 import christmas.domain.Discount;
 import christmas.domain.EventList;
 import christmas.domain.Order;
-import christmas.service.Pay;
-import java.util.List;
+import christmas.domain.OrderList;
+import christmas.domain.Pay;
 import java.util.Map.Entry;
 
 public class OutputView {
 
-    public void showOrderMenu(List<Order> orderList) {
+    public void showOrderMenu(OrderList orderList) {
         System.out.println("12월 3일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!");
         System.out.println("");
         System.out.println("<주문 메뉴>");
-        for (Order order : orderList) {
+        for (Order order : orderList.orderList()) {
             System.out.println(order.toString());
         }
     }
 
-    public void showResult(Pay pay, Discount discount){
+    public void showResult(Pay pay, Discount discount) {
         showTotalPrice(pay);
         showGift(pay);
         showBonusList(discount);
@@ -29,7 +30,7 @@ public class OutputView {
     private void showTotalPrice(Pay totalPriceBeforeDiscount) {
         System.out.println("");
         System.out.println("<할인 전 총주문 금액>");
-        System.out.println(totalPriceBeforeDiscount.getTotalPay() + "원");
+        System.out.println(formatCurrency(totalPriceBeforeDiscount.getTotalPay()) + "원");
     }
 
     private void showGift(Pay pay) {
@@ -42,20 +43,38 @@ public class OutputView {
         System.out.println("");
         System.out.println("<혜택 내역>");
         for (Entry<EventList, Integer> entrySet : discount.getDiscountList().entrySet()) {
-            System.out.println(entrySet.getKey().getEventName() + "-" + entrySet.getValue() + "원");
+            decideBonusListMessage(entrySet);
         }
+    }
+
+    public void decideBonusListMessage(Entry<EventList, Integer> entrySet) {
+        if (entrySet.getKey().getEventName().equals("없음")) {
+            System.out.println(entrySet.getKey().getEventName());
+            return;
+        }
+        System.out.println(
+                entrySet.getKey().getEventName() + "-" + formatCurrency(entrySet.getValue())
+                        + "원");
     }
 
     private void showTotalDiscountPrice(Discount discount) {
         System.out.println("");
         System.out.println("<총혜택 금액>");
-        System.out.println("-" + discount.calculateTotalDiscountPrice() + "원");
+        decideTotalDiscountPriceMessage(formatCurrency(discount.calculateTotalDiscountPrice()));
+    }
+
+    private void decideTotalDiscountPriceMessage(String money) {
+        if (money.equals("0")) {
+            System.out.println(money + "원");
+            return;
+        }
+        System.out.println("-" + money + "원");
     }
 
     public void showAfterDiscountPrice(int price) {
         System.out.println("");
         System.out.println("<할인 후 예상 결제 금액>");
-        System.out.println(price + "원");
+        System.out.println(formatCurrency(price) + "원");
     }
 
     public void showEventBadge(Badge badge) {
