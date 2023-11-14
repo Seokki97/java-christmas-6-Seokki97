@@ -1,13 +1,11 @@
-package christmas.service;
+package christmas.domain;
 
-
-import christmas.domain.Discount;
-import christmas.domain.EventList;
 
 public class Pay {
 
     private static final int EVENT_PRICE = 120000;
     private static final int EVENT_APPLYING_CONDITION = 10000;
+
     private final int totalPrice;
 
     public Pay(int totalPrice) {
