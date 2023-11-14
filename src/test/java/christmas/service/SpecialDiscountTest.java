@@ -1,20 +1,20 @@
 package christmas.service;
 
 import christmas.domain.EventList;
-import christmas.service.discount.StarDiscount;
+import christmas.service.discount.SpecialDiscount;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class StarDiscountTest {
+public class SpecialDiscountTest {
 
     @DisplayName("별표시가 된 날짜에 방문했을 시 특별 이벤트를 적용한다. 단, 누적은 안된다.")
     @Test
     void calculateStarEvent(){
-        StarDiscount sunday = new StarDiscount(new CalendarService(),3);
-        StarDiscount christmas = new StarDiscount(new CalendarService(), 25);
+        SpecialDiscount sunday = new SpecialDiscount(new CalendarService(),3);
+        SpecialDiscount christmas = new SpecialDiscount(new CalendarService(), 25);
 
         Map<EventList, Integer> discountList = new HashMap<>();
         sunday.calculateDiscount(discountList);

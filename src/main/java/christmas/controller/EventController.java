@@ -5,26 +5,26 @@ import christmas.domain.EventList;
 import christmas.domain.OrderList;
 import christmas.domain.Pay;
 import christmas.service.CalendarService;
-import christmas.service.discount.DayDiscountStrategy;
-import christmas.service.discount.GiftDiscountStrategy;
-import christmas.service.discount.StarDiscountStrategy;
-import christmas.service.discount.WeekendDiscountStrategy;
+import christmas.service.discount.DayDiscount;
+import christmas.service.discount.GiftDiscount;
+import christmas.service.discount.SpecialDiscount;
+import christmas.service.discount.WeekendDiscount;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EventController {
 
-    private final DayDiscountStrategy dayDiscountStrategy;
-    private final GiftDiscountStrategy giftDiscountStrategy;
-    private final StarDiscountStrategy starDiscountStrategy;
-    private final WeekendDiscountStrategy weekendDiscountStrategy;
+    private final DayDiscount dayDiscountStrategy;
+    private final GiftDiscount giftDiscount;
+    private final SpecialDiscount specialDiscount;
+    private final WeekendDiscount weekendDiscountStrategy;
 
     public EventController(OrderList orderList, int visitDay, Pay pay) {
         final CalendarService calendarService = new CalendarService();
-        this.dayDiscountStrategy = new DayDiscountStrategy(visitDay);
-        this.giftDiscountStrategy = new GiftDiscountStrategy(pay);
-        this.starDiscountStrategy = new StarDiscountStrategy(calendarService, visitDay);
-        this.weekendDiscountStrategy = new WeekendDiscountStrategy(calendarService, orderList, visitDay);
+        this.dayDiscountStrategy = new DayDiscount(visitDay);
+        this.giftDiscount = new GiftDiscount(pay);
+        this.specialDiscount = new SpecialDiscount(calendarService, visitDay);
+        this.weekendDiscountStrategy = new WeekendDiscount(calendarService, orderList, visitDay);
     }
     public Map<EventList, Integer> calculateDayOfWeekDiscount(Pay pay) {
         Map<EventList, Integer> discountList = new HashMap<>();
@@ -34,8 +34,8 @@ public class EventController {
             return discountList;
         }
         weekendDiscountStrategy.calculateDiscount(discountList);
-        starDiscountStrategy.calculateDiscount(discountList);
-        giftDiscountStrategy.calculateDiscount(discountList);
+        specialDiscount.calculateDiscount(discountList);
+        giftDiscount.calculateDiscount(discountList);
         dayDiscountStrategy.calculateDiscount(discountList);
         return discountList;
     }
