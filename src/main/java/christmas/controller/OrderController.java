@@ -2,9 +2,9 @@ package christmas.controller;
 
 import camp.nextstep.edu.missionutils.Console;
 import christmas.domain.Order;
+import christmas.domain.OrderList;
 import christmas.dto.OrderRequest;
 import christmas.service.InputValidator;
-import christmas.service.OrderService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import java.util.ArrayList;
@@ -15,13 +15,11 @@ public class OrderController {
 
     private final InputView inputView;
     private final InputValidator inputValidator;
-    private final OrderService orderService;
     private final OutputView outputView;
 
     public OrderController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
         this.inputValidator = new InputValidator();
-        this.orderService = new OrderService();
         this.outputView = outputView;
     }
 
@@ -39,27 +37,30 @@ public class OrderController {
         return date;
     }
 
-    public List<OrderRequest> readOrderMenuInformation() {
+    public OrderList readOrderMenuInformation() {
         inputView.showOrderMenu();
-        List<OrderRequest> orderRequests;
+        OrderList orderList;
         while (true) {
             try {
                 List<String> orderMenu = validateOrderMenuInformation();
-                orderRequests = generateOrderRequest(orderMenu);
+                List<OrderRequest> orderRequests = generateOrderRequest(orderMenu);
                 inputValidator.validateOrderMenuIsDuplicate(orderRequests);
+                orderList = readOrderMenu(orderRequests);
                 break;
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
         }
-        return orderRequests;
+        return orderList;
     }
 
-    public List<Order> readOrderMenu() {
-        List<OrderRequest> orderRequests = readOrderMenuInformation();
-        List<Order> orders = orderService.generateOrderList(orderRequests);
-        outputView.showOrderMenu(orders);
-        return orders;
+    public OrderList readOrderMenu(List<OrderRequest> orderRequests) {
+        List<Order> orders = new ArrayList<>();
+        OrderList orderList = new OrderList(orders);
+        orderList = orderList.generateOrderList(orderRequests);
+        inputValidator.checkOrderMenuOnlyDrinkType(orderList);
+        outputView.showOrderMenu(orderList);
+        return orderList;
     }
 
     private List<String> validateOrderMenuInformation() {
