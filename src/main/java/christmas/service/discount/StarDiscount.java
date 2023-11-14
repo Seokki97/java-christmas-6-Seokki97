@@ -19,8 +19,7 @@ public class StarDiscount implements DiscountStrategy {
     public void calculateDiscount(Map<EventList, Integer> discountList) {
         if (calendarService.isStarDay(visitDay)) {
             discountList.put(EventList.SPECIAL,
-                    discountList.getOrDefault(EventList.SPECIAL, DiscountPrice.DEFAULT.getDiscountPrice())
-                            + DiscountPrice.SPECIAL.getDiscountPrice());
+                    discountList.getOrDefault(EventList.SPECIAL, DiscountPrice.SPECIAL.getDiscountPrice()));
         }
     }
 }
