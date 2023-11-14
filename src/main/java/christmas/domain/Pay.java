@@ -31,8 +31,7 @@ public class Pay {
         return totalPrice;
     }
 
-    public int getPayMoneyAfterDisCount(Discount discount) {
-        discount.removeGiftElement();
-        return totalPrice - discount.calculateTotalDiscountPrice();
+    public int calculatePayMoneyAfterDisCount(Discount discount) {
+        return totalPrice - discount.calculateTotalDiscountMoneyExceptGift();
     }
 }

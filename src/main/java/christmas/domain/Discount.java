@@ -1,36 +1,52 @@
 package christmas.domain;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
-public record Discount(Map<EventList, Integer> discountList) {
+public class Discount {
 
-    public void removeGiftElement() {
-        discountList.remove(EventList.GIFT);
+    private final Map<EventList, Integer> discountList;
+    private final int totalDiscountMoney;
+
+    public Discount(Map<EventList, Integer> discountList) {
+        this.discountList = discountList;
+        this.totalDiscountMoney = calculateTotalDiscountMoney();
     }
 
-    @Override
-    public Map<EventList, Integer> discountList() {
-        return Collections.unmodifiableMap(discountList);
-    }
-
-    public int calculateTotalDiscountPrice() {
+    public int calculateTotalDiscountMoney() {
         return discountList.values().stream()
                 .mapToInt(Integer::intValue)
                 .sum();
     }
 
+    public int calculateTotalDiscountMoneyExceptGift(){
+        Map<EventList,Integer> copyDiscountList = new HashMap<>(Map.copyOf(discountList));
+        copyDiscountList.remove(EventList.GIFT);
+        return copyDiscountList.values().stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+    }
+
+    public Map<EventList, Integer> discountList() {
+        return Collections.unmodifiableMap(discountList);
+    }
+
+
     public Badge findBadge() {
-        int totalDiscountPrice = calculateTotalDiscountPrice();
-        if (totalDiscountPrice > Badge.SANTA.getMoney()) {
+        if (totalDiscountMoney > Badge.SANTA.getMoney()) {
             return Badge.SANTA;
         }
-        if (totalDiscountPrice > Badge.TREE.getMoney()) {
+        if (totalDiscountMoney > Badge.TREE.getMoney()) {
             return Badge.TREE;
         }
-        if (totalDiscountPrice > Badge.STAR.getMoney()) {
+        if (totalDiscountMoney > Badge.STAR.getMoney()) {
             return Badge.STAR;
         }
         return Badge.NOTHING;
+    }
+
+    public int getTotalDiscountMoney() {
+        return totalDiscountMoney;
     }
 }
