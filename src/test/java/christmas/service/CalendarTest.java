@@ -1,5 +1,6 @@
 package christmas.service;
 
+import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,6 +21,20 @@ public class CalendarTest {
                 ()-> Assertions.assertTrue(calendarService.isWeekend(friday)),
                 () -> Assertions.assertTrue(calendarService.isWeekend(saturday)),
                 () -> Assertions.assertFalse(calendarService.isWeekend(sunday))
+        );
+    }
+
+    @DisplayName("방문 날짜가 별표시된 날짜인지 확인한다.")
+    @Test
+    void isStarDay(){
+        int starDay = 10;
+        int christmas =25;
+        int notStarDay = 26;
+
+        Assertions.assertAll(
+                () -> Assertions.assertTrue(calendarService.isStarDay(starDay)),
+                () -> Assertions.assertTrue(calendarService.isStarDay(christmas)),
+                () -> Assertions.assertFalse(calendarService.isStarDay(notStarDay))
         );
     }
 }
