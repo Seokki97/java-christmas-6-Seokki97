@@ -28,4 +28,15 @@ public class PayTest {
                 () -> Assertions.assertEquals("없음", nonGift.checkCanGetGift())
         );
     }
+
+    @DisplayName("구매 금액이 이벤트 적용되는 금액인지 확인한다.")
+    @Test
+    void isApplyEvent(){
+        Pay eventFalse = new Pay(3000);
+        Pay eventTrue = new Pay(12000);
+        Assertions.assertAll(
+                () -> Assertions.assertFalse(eventFalse.isEventCondition()),
+                () -> Assertions.assertTrue(eventTrue.isEventCondition())
+        );
+    }
 }
