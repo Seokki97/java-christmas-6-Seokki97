@@ -1,5 +1,7 @@
 package christmas.service;
 
+import christmas.domain.Order;
+import christmas.domain.OrderList;
 import christmas.dto.OrderRequest;
 import christmas.repository.MenuRepository;
 import java.util.HashSet;
@@ -72,5 +74,17 @@ public class InputValidator {
 
     public void checkOrderItemInMenuList(String orderItem) {
         MenuRepository.findMenuByOrderItem(orderItem);
+    }
+
+    public void checkOrderMenuOnlyDrinkType(OrderList orderList) {
+        if(isOrderMenuOnlyDrinkType(orderList)){
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
+    private boolean isOrderMenuOnlyDrinkType(OrderList orderList) {
+        return orderList.orderList().stream().map(Order::orderItem)
+                .map(MenuRepository::getType)
+                .allMatch(x-> x.equals("음료"));
     }
 }
