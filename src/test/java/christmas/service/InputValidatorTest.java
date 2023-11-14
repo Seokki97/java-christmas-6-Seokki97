@@ -1,5 +1,7 @@
 package christmas.service;
 
+import christmas.dto.OrderRequest;
+import java.util.List;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -55,6 +57,19 @@ public class InputValidatorTest {
                 () -> Assertions.assertThrows(IllegalArgumentException.class,
                         () -> inputValidator.checkMenuDataIsWrong("제로콜라-1,")),
                 () -> Assertions.assertDoesNotThrow(() -> inputValidator.checkMenuDataIsWrong("제로콜라-1"))
+        );
+    }
+
+    @DisplayName("주문한 음식이 중복되었는지 검증한다.")
+    @Test
+    void checkMenuDuplication(){
+        List<OrderRequest> orderRequest = List.of(
+                new OrderRequest("제로콜라",1),
+                new OrderRequest("제로콜라",2)
+        );
+        Assertions.assertAll(
+                () -> Assertions.assertThrows(IllegalArgumentException.class,
+                        () -> inputValidator.validateOrderMenuIsDuplicate(orderRequest))
         );
     }
 }
