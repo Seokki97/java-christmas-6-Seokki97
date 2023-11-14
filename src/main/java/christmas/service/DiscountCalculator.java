@@ -1,6 +1,6 @@
 package christmas.service;
 
-import christmas.domain.Discount;
+import christmas.domain.DiscountPrice;
 import christmas.domain.EventList;
 import christmas.domain.Order;
 import christmas.domain.OrderList;
@@ -10,8 +10,10 @@ import java.util.Map;
 
 public class DiscountCalculator {
 
-    private final CalendarService calendarService;
+    private static final String MAIN_TYPE = "메인";
+    private static final String DESSERT_TYPE = "디저트";
 
+    private final CalendarService calendarService;
     private final OrderList orderList;
 
     public DiscountCalculator(OrderList orderList) {
@@ -21,9 +23,9 @@ public class DiscountCalculator {
 
     //1일부터 시작하여 1000원으로 시작하여 크리스마스 다가올수록 할인 금액이 100원씩 증가
     public void calculateDayDiscount(int visitDay, Map<EventList, Integer> discountList) {
-        int startDiscountMoney = 1000;
+        int startDiscountMoney = DiscountPrice.DAY.getDiscountPrice();
         for (int i = 1; i < visitDay; i++) {
-            startDiscountMoney += 100;
+            startDiscountMoney += DiscountPrice.EVERYDAY.getDiscountPrice();
         }
         discountList.put(EventList.D_DAY,
                 discountList.getOrDefault(EventList.D_DAY, startDiscountMoney));
@@ -47,25 +49,28 @@ public class DiscountCalculator {
 
     public void calculateStarDay(Map<EventList, Integer> discountList, int visitDay) {
         if (calendarService.isStarDay(visitDay)) {
-            discountList.put(EventList.SPECIAL, discountList.getOrDefault(EventList.SPECIAL, 0) + 1000);
+            discountList.put(EventList.SPECIAL,
+                    discountList.getOrDefault(EventList.SPECIAL, DiscountPrice.DEFAULT.getDiscountPrice())
+                            + DiscountPrice.SPECIAL.getDiscountPrice());
         }
     }
 
     public void calculateCanGetGift(Map<EventList, Integer> discountList, Pay pay) {
         if (pay.isTotalPayOverGiftEventPrice()) {
-            discountList.put(EventList.GIFT, discountList.getOrDefault(EventList.GIFT, 25000));
+            discountList.put(EventList.GIFT,
+                    discountList.getOrDefault(EventList.GIFT, DiscountPrice.GIFT.getDiscountPrice()));
         }
     }
 
     public Map<EventList, Integer> calculateWeekendEvent(Map<EventList, Integer> discountList, int dayOfWeek) {
         if (calendarService.isWeekend(dayOfWeek)) {
             for (Order order : orderList.orderList()) {
-                findSameMenuType(discountList, "메인", EventList.SUNDAY, order);
+                findSameMenuType(discountList, MAIN_TYPE, EventList.SUNDAY, order);
             }
             return discountList;
         }
         for (Order order : orderList.orderList()) {
-            findSameMenuType(discountList, "디저트", EventList.SUNDAY, order);
+            findSameMenuType(discountList, DESSERT_TYPE, EventList.SUNDAY, order);
         }
         return discountList;
     }
@@ -74,7 +79,8 @@ public class DiscountCalculator {
                                  Order order) {
         if (order.orderItem().isSameType(menuType)) {
             discountList.put(eventList,
-                    discountList.getOrDefault(eventList, 0) + 2023 * order.orderCount());
+                    discountList.getOrDefault(eventList, DiscountPrice.DEFAULT.getDiscountPrice())
+                            + DiscountPrice.MENU.getDiscountPrice() * order.orderCount());
         }
     }
 }

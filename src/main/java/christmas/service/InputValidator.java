@@ -12,6 +12,13 @@ import java.util.regex.Pattern;
 public class InputValidator {
 
     private static final String NUMBER = "^[0-9]+$";
+    private static final String DASH = "-";
+    private static final String BLANK = "";
+    private static final String COMMA = ",";
+    private static final String SPACE = " ";
+    private static final String DRINK = "음료";
+    private static final int MENU = 0;
+    private static final int ORDER_COUNT = 1;
 
     public int readVisitDay(String day) {
         validateDayIsNotNumber(day);
@@ -39,19 +46,19 @@ public class InputValidator {
     }
 
     private void validateOrderMenuContainBlank(String orderMenu) {
-        if (orderMenu.contains(" ")) {
+        if (orderMenu.contains(SPACE)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
     private void validateOrderMenuContainHyphen(String orderMenu) {
-        if (!orderMenu.contains("-")) {
+        if (!orderMenu.contains(DASH)) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
 
     private void validateOneMenuHasCommaDelimiter(String orderMenu) {
-        if (orderMenu.contains(",") && orderMenu.split(",").length == 1) {
+        if (orderMenu.contains(BLANK) && orderMenu.split(COMMA).length == 1) {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
@@ -66,9 +73,9 @@ public class InputValidator {
 
     public String[] checkNameAndCount(String orderItem) {
         String[] menuInformation = orderItem.split("-");
-        String menuName = menuInformation[0];
+        String menuName = menuInformation[MENU];
         checkOrderItemInMenuList(menuName);
-        validateMenuCountIsNotNumber(menuInformation[1]);
+        validateMenuCountIsNotNumber(menuInformation[ORDER_COUNT]);
         return menuInformation;
     }
 
@@ -77,6 +84,7 @@ public class InputValidator {
             throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
         }
     }
+
     public void checkOrderItemInMenuList(String orderItem) {
         MenuRepository.findMenuByOrderItem(orderItem);
     }
@@ -90,6 +98,6 @@ public class InputValidator {
     private boolean isOrderMenuOnlyDrinkType(OrderList orderList) {
         return orderList.orderList().stream().map(Order::orderItem)
                 .map(MenuRepository::getType)
-                .allMatch(x -> x.equals("음료"));
+                .allMatch(x -> x.equals(DRINK));
     }
 }
