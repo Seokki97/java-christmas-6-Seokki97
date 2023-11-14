@@ -3,15 +3,19 @@ package christmas.service;
 import christmas.domain.Discount;
 import christmas.domain.EventList;
 import christmas.domain.Order;
+import christmas.domain.OrderList;
+import christmas.domain.Pay;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class DiscountCalculator {
 
     private final CalendarService calendarService;
 
-    public DiscountCalculator() {
+    private final OrderList orderList;
+
+    public DiscountCalculator(OrderList orderList) {
+        this.orderList = orderList;
         this.calendarService = new CalendarService();
     }
 
@@ -26,7 +30,7 @@ public class DiscountCalculator {
     }
 
     //방문 날짜가 주말이면? 메인 메뉴를 메뉴 1개당 2023원 할인
-    public Map<EventList, Integer> calculateDayOfWeekDiscount(int visitDay, List<Order> orderList, Pay pay) {
+    public Map<EventList, Integer> calculateDayOfWeekDiscount(int visitDay, Pay pay) {
         int dayOfWeek = calendarService.findVisitDayOfWeek(visitDay);
         Map<EventList, Integer> discountList = new HashMap<>();
         if (!pay.isEventCondition()) {
@@ -34,7 +38,7 @@ public class DiscountCalculator {
                     discountList.getOrDefault(EventList.NOTHING, 0));
             return discountList;
         }
-        discountList = calculateWeekendEvent(discountList, orderList, dayOfWeek);
+        discountList = calculateWeekendEvent(discountList, dayOfWeek);
         calculateStarDay(discountList, visitDay);
         calculateCanGetGift(discountList, pay);
         calculateDayDiscount(visitDay, discountList);
@@ -53,28 +57,24 @@ public class DiscountCalculator {
         }
     }
 
-    public Map<EventList, Integer> calculateWeekendEvent(Map<EventList, Integer> discountList, List<Order> orderList,
-                                                         int dayOfWeek) {
+    public Map<EventList, Integer> calculateWeekendEvent(Map<EventList, Integer> discountList, int dayOfWeek) {
         if (calendarService.isWeekend(dayOfWeek)) {
-            for (Order order : orderList) {
-                findSameMenuType(discountList, "메인", EventList.SUNDAY,order);
+            for (Order order : orderList.orderList()) {
+                findSameMenuType(discountList, "메인", EventList.SUNDAY, order);
             }
             return discountList;
         }
-        for (Order order : orderList) {
-            findSameMenuType(discountList, "디저트", EventList.SUNDAY,order);
+        for (Order order : orderList.orderList()) {
+            findSameMenuType(discountList, "디저트", EventList.SUNDAY, order);
         }
         return discountList;
     }
 
-    public void findSameMenuType(Map<EventList, Integer> discountList, String menuType, EventList eventList,Order order) {
+    public void findSameMenuType(Map<EventList, Integer> discountList, String menuType, EventList eventList,
+                                 Order order) {
         if (order.orderItem().isSameType(menuType)) {
             discountList.put(eventList,
                     discountList.getOrDefault(eventList, 0) + 2023 * order.orderCount());
         }
-    }
-
-    public int calculateDiscountedPayPrice(Discount discount, Pay pay) {
-        return pay.getTotalPay() - discount.calculateTotalDiscountPrice();
     }
 }
