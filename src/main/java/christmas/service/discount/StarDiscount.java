@@ -5,12 +5,12 @@ import christmas.domain.EventList;
 import christmas.service.CalendarService;
 import java.util.Map;
 
-public class StarDiscountStrategy implements DiscountStrategy {
+public class StarDiscount implements DiscountStrategy {
 
     private final CalendarService calendarService;
     private final int visitDay;
 
-    public StarDiscountStrategy(CalendarService calendarService, int visitDay) {
+    public StarDiscount(CalendarService calendarService, int visitDay) {
         this.calendarService = calendarService;
         this.visitDay = visitDay;
     }

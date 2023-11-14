@@ -4,11 +4,11 @@ import christmas.domain.DiscountPrice;
 import christmas.domain.EventList;
 import java.util.Map;
 
-public class DayDiscountStrategy implements DiscountStrategy {
+public class DayDiscount implements DiscountStrategy {
 
     private final int visitDay;
 
-    public DayDiscountStrategy(int visitDay) {
+    public DayDiscount(int visitDay) {
         this.visitDay = visitDay;
     }
 

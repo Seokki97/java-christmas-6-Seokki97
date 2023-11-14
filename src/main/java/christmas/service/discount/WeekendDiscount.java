@@ -7,7 +7,7 @@ import christmas.domain.OrderList;
 import christmas.service.CalendarService;
 import java.util.Map;
 
-public class WeekendDiscountStrategy implements DiscountStrategy {
+public class WeekendDiscount implements DiscountStrategy {
 
     private static final String MAIN_TYPE = "메인";
     private static final String DESSERT_TYPE = "디저트";
@@ -15,7 +15,7 @@ public class WeekendDiscountStrategy implements DiscountStrategy {
     private final OrderList orderList;
     private final int visitedDay;
 
-    public WeekendDiscountStrategy(CalendarService calendarService, OrderList orderList, int visitedDay) {
+    public WeekendDiscount(CalendarService calendarService, OrderList orderList, int visitedDay) {
         this.calendarService = calendarService;
         this.orderList = orderList;
         this.visitedDay = visitedDay;

@@ -3,14 +3,13 @@ package christmas.service.discount;
 import christmas.domain.DiscountPrice;
 import christmas.domain.EventList;
 import christmas.domain.Pay;
-import christmas.service.discount.DiscountStrategy;
 import java.util.Map;
 
-public class GiftDiscountStrategy implements DiscountStrategy {
+public class GiftDiscount implements DiscountStrategy {
 
     private final Pay pay;
 
-    public GiftDiscountStrategy(Pay pay) {
+    public GiftDiscount(Pay pay) {
         this.pay = pay;
     }
 
