@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class DayDiscountTest {
+public class DayBenefitsTest {
 
     @DisplayName("디데이 할인이 적용되는지 검증한다.")
     @Test

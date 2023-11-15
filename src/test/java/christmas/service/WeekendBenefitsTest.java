@@ -13,7 +13,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 
-public class WeekendDiscountTest {
+public class WeekendBenefitsTest {
 
     @DisplayName("주말일경우 메인메뉴, 평일일경우 디저트 메뉴만 할인을 적용한다.")
     @Test

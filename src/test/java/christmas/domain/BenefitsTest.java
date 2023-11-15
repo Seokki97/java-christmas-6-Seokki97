@@ -7,9 +7,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class DiscountTest {
+public class BenefitsTest {
 
-    private Discount discount;
+    private Benefits benefits;
 
     @BeforeEach
     void set() {
@@ -17,25 +17,25 @@ public class DiscountTest {
 
         map.put(EventList.GIFT, 25000);
         map.put(EventList.SUNDAY, 2023);
-        discount = new Discount(map);
+        benefits = new Benefits(map);
     }
 
     @DisplayName("혜택 금액 총합을 계산한다.")
     @Test
     void calculateTotalBenefitMoney() {
 
-        Assertions.assertEquals(27023, discount.getTotalBenefitMoney());
+        Assertions.assertEquals(27023, benefits.getTotalBenefitMoney());
     }
 
     @DisplayName("Gift 항목을 제외한 혜택금액의 총합을 계산한다")
     @Test
     void calculateBenefitsExceptGift() {
-        Assertions.assertEquals(2023, discount.calculateTotalDiscountMoneyExceptGift());
+        Assertions.assertEquals(2023, benefits.calculateTotalBenefitMoneyExceptGift());
     }
 
     @DisplayName("총 혜택 금액에 따른 뱃지를 결정한다.")
     @Test
     void findBadge() {
-        Assertions.assertEquals(Badge.SANTA, discount.findBadge());
+        Assertions.assertEquals(Badge.SANTA, benefits.findBadge());
     }
 }

@@ -1,7 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.Badge;
-import christmas.domain.Discount;
+import christmas.domain.Benefits;
 import christmas.domain.EventList;
 import christmas.domain.OrderList;
 import christmas.domain.Pay;
@@ -25,14 +25,14 @@ public class SystemController {
         Pay pay = new Pay(orderList.calculateTotalPrice());
         EventController eventController = new EventController(orderList, visitDay, pay);
         Map<EventList, Integer> discountList = eventController.calculateDiscountEvent(pay);
-        Discount discount = new Discount(discountList);
-        outputView.showResult(pay, discount);
-        showDiscountPrice(discount, pay);
+        Benefits benefits = new Benefits(discountList);
+        outputView.showResult(pay, benefits);
+        showDiscountPrice(benefits, pay);
     }
 
-    private void showDiscountPrice(Discount discount, Pay pay) {
-        Badge badge = discount.findBadge();
-        int totalDiscountPayPrice = pay.calculatePayAmountAfterDisCount(discount);
+    private void showDiscountPrice(Benefits benefits, Pay pay) {
+        Badge badge = benefits.findBadge();
+        int totalDiscountPayPrice = pay.calculatePayAmountAfterDisCount(benefits);
         outputView.showAfterDiscountPrice(totalDiscountPayPrice);
         outputView.showEventBadge(badge);
     }

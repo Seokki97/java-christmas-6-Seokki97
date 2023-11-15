@@ -4,12 +4,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Discount {
+public class Benefits {
 
     private final Map<EventList, Integer> discountList;
     private final int totalBenefitMoney;
 
-    public Discount(Map<EventList, Integer> discountList) {
+    public Benefits(Map<EventList, Integer> discountList) {
         this.discountList = discountList;
         this.totalBenefitMoney = calculateTotalBenefitMoney();
     }
@@ -20,7 +20,7 @@ public class Discount {
                 .sum();
     }
 
-    public int calculateTotalDiscountMoneyExceptGift() {
+    public int calculateTotalBenefitMoneyExceptGift() {
         Map<EventList, Integer> copyDiscountList = new HashMap<>(Map.copyOf(discountList));
         copyDiscountList.remove(EventList.GIFT);
         return copyDiscountList.values().stream()

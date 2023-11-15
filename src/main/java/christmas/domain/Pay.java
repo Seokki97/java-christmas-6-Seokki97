@@ -27,8 +27,8 @@ public class Pay {
         return totalPrice >= EVENT_APPLYING_CONDITION;
     }
 
-    public int calculatePayAmountAfterDisCount(Discount discount) {
-        return totalPrice - discount.calculateTotalDiscountMoneyExceptGift();
+    public int calculatePayAmountAfterDisCount(Benefits benefits) {
+        return totalPrice - benefits.calculateTotalBenefitMoneyExceptGift();
     }
     
     public int getTotalPay() {

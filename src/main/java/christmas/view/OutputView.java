@@ -3,7 +3,7 @@ package christmas.view;
 import static christmas.service.NumberFormatter.convertToOutputFormat;
 
 import christmas.domain.Badge;
-import christmas.domain.Discount;
+import christmas.domain.Benefits;
 import christmas.domain.EventList;
 import christmas.domain.Order;
 import christmas.domain.OrderList;
@@ -21,11 +21,11 @@ public class OutputView {
         }
     }
 
-    public void showResult(Pay pay, Discount discount) {
+    public void showResult(Pay pay, Benefits benefits) {
         showTotalPrice(pay);
         showGift(pay);
-        showBonusList(discount);
-        showTotalDiscountPrice(discount.getTotalBenefitMoney());
+        showBonusList(benefits);
+        showTotalDiscountPrice(benefits.getTotalBenefitMoney());
     }
 
     private void showTotalPrice(Pay totalPriceBeforeDiscount) {
@@ -40,10 +40,10 @@ public class OutputView {
         System.out.println(pay.checkCanGetGift());
     }
 
-    private void showBonusList(Discount discount) {
+    private void showBonusList(Benefits benefits) {
         System.out.println("");
         System.out.println("<혜택 내역>");
-        for (Entry<EventList, Integer> entrySet : discount.discountList().entrySet()) {
+        for (Entry<EventList, Integer> entrySet : benefits.discountList().entrySet()) {
             decideBonusListMessage(entrySet);
         }
     }

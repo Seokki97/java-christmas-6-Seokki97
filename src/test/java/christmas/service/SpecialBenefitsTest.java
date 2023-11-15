@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class SpecialDiscountTest {
+public class SpecialBenefitsTest {
 
     @DisplayName("별표시가 된 날짜에 방문했을 시 특별 이벤트를 적용한다. 단, 누적은 안된다.")
     @Test

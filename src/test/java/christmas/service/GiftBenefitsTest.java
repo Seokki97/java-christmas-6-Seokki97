@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class GiftDiscountTest {
+public class GiftBenefitsTest {
 
     @DisplayName("증정 할인이 적용되는지 검증한다.")
     @Test
