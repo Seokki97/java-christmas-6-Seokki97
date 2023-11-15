@@ -24,7 +24,7 @@ public class SystemController {
         OrderList orderList = orderController.readOrderMenuInformation();
         Pay pay = new Pay(orderList.calculateTotalPrice());
         EventController eventController = new EventController(orderList, visitDay, pay);
-        Map<EventList, Integer> discountList = eventController.calculateDiscountEvent(pay);
+        Map<EventList, Integer> discountList = eventController.applyAllEvent(pay);
         Benefits benefits = new Benefits(discountList);
         outputView.showResult(pay, benefits);
         showDiscountPrice(benefits, pay);
